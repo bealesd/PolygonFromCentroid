@@ -11,32 +11,31 @@ namespace PolygonFromCentroid
         static void Main(string[] args)
         {
 
-            createPolygonFromCentroid(0, 0, 4, 2);
-
-            createPolygonFromCentroid(65.5, 68.5, 4, 2);
+            CreatePolygonFromCentroid(0, 0, 4, 2);
+            CreatePolygonFromCentroid(65.5, 68.5, 4, 2);
 
             Console.ReadKey();
         }
-        static void createPolygonFromCentroid(double polygon_lat_centroid, double polygon_long_centroid, double polygon_length, double polygon_height)
+        static void CreatePolygonFromCentroid(double polygonLatCentroid, double polygonLongCentroid, double polygonLength, double polygonHeight)
         {
-            var bottom_lat = polygon_lat_centroid - polygon_height / 2;
-            var top_lat = polygon_lat_centroid + polygon_height / 2;
-            var left_long = polygon_long_centroid - polygon_length / 2;
-            var right_long = polygon_long_centroid + polygon_length / 2;
+            var bottomLat = polygonLatCentroid - polygonHeight / 2;
+            var topLat = polygonLatCentroid + polygonHeight / 2;
+            var leftLong = polygonLongCentroid - polygonLength / 2;
+            var rightLong = polygonLongCentroid + polygonLength / 2;
 
-            var lowerleft = new NetTopologySuite.Geometries.Coordinate(left_long, bottom_lat);
-            var lowerright = new NetTopologySuite.Geometries.Coordinate(right_long, bottom_lat);
-            var topleft = new NetTopologySuite.Geometries.Coordinate(left_long, top_lat);
-            var topright = new NetTopologySuite.Geometries.Coordinate(right_long, top_lat);
+            var lowerLeft = new NetTopologySuite.Geometries.Coordinate(leftLong, bottomLat);
+            var lowerRight = new NetTopologySuite.Geometries.Coordinate(rightLong, bottomLat);
+            var topLeft = new NetTopologySuite.Geometries.Coordinate(leftLong, topLat);
+            var topRight = new NetTopologySuite.Geometries.Coordinate(rightLong, topLat);
 
             var gf = NetTopologySuite.NtsGeometryServices.Instance.CreateGeometryFactory(4326);
 
             List<NetTopologySuite.Geometries.Coordinate> coordinates = new List<NetTopologySuite.Geometries.Coordinate>();
-            coordinates.Add(lowerleft);
-            coordinates.Add(lowerright);
-            coordinates.Add(topleft);
-            coordinates.Add(topright);
-            coordinates.Add(lowerleft);
+            coordinates.Add(lowerLeft);
+            coordinates.Add(lowerRight);
+            coordinates.Add(topLeft);
+            coordinates.Add(topRight);
+            coordinates.Add(lowerLeft);
 
             var polygon = gf.CreatePolygon(coordinates.ToArray());
 
